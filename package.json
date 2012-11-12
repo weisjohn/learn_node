@@ -13,10 +13,10 @@
   ],
   "author": "John Weis",
   "license": "BSD",
-  "readmeFilename": "README.md"
-  "private" : true,
+  "readmeFilename": "README.md",
+  "private" : "true",
   "dependencies" : {
   	"express" : "3.0.2",
-  	"request" : "*" 
+  	"request" : "*"
   }
 }
