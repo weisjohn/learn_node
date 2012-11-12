@@ -2,10 +2,9 @@
   Concept: Server Health
 */
 var express = require('express'),
-    request = require('request'),
     app = express();
 
-// # Middleware, not blocking, potentially a bottleneck
+
 app.use(function(req, res, next) {
 
   var requests = app.get('requests');
