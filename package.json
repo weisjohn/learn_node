@@ -16,6 +16,7 @@
   "readmeFilename": "README.md"
   "private" : true,
   "dependencies" : {
-  	"express" : "3.0.2"
+  	"express" : "3.0.2",
+  	"request" : "*" 
   }
 }
