@@ -2,25 +2,17 @@
   Concept: Server Health
 */
 var express = require('express'),
+    http = require('http'),
     app = express();
-
-
-app.use(function(req, res, next) {
-
-  var requests = app.get('requests');
-  if (!requests) requests = 1;
-  app.set('requests', ++requests);
-
-  next();
-});
+server = http.createServer(app);
 
 app.get('/health', function(req, res){
-  res.send({
-    pid: process.pid,
-    memory: process.memoryUsage(),
-    uptime: process.uptime(),
-    requests: app.get('requests')
-  });
+    res.send({
+        pid: process.pid,
+        memory: process.memoryUsage(),
+        uptime: process.uptime(),
+        connections: server.connections
+    });
 });
 
-app.listen(3000);
+server.listen(3000);
