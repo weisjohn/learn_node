@@ -1,18 +1,18 @@
-const crypto = require('crypto'),
-      fs = require("fs"),
-      http = require("http");
+/*
+	Concept: Hello World - SSL
+*/
 
-var privateKey = fs.readFileSync('privatekey.pem').toString();
-var certificate = fs.readFileSync('certificate.pem').toString();
-
-var credentials = crypto.createCredentials({key: privateKey, cert: certificate});
-
-var handler = function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
+var tls = require('tls'), fs = require('fs');
+var opts = {
+  key: fs.readFileSync('privatekey.pem'),
+  cert: fs.readFileSync('certificate.pem'),
+  requestCert: true, // client certificate auth
+  // self-signed certificate.
+  ca: [ fs.readFileSync('certificate.pem') ]
 };
-
-var server = http.createServer();
-server.setSecure(credentials);
-server.addListener("request", handler);
-server.listen(8000);
+// cts = clear text stream
+var server = tls.createServer(opts, function(cts){
+  cts.write("Hello World!\n");
+  cts.end();
+});
+server.listen(443,function(){ console.log('ssl-ing') });

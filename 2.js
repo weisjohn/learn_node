@@ -5,7 +5,7 @@
 var net = require('net');
 
 var server = net.createServer(function (socket) {
-  socket.write('Echo server\r\n');
+  socket.write('Hello World - echoing:\r\n');
   socket.pipe(socket);
 });
 
