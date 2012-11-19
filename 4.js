@@ -1,12 +1,18 @@
-/*
-	Concept: Hello World - Express
-*/
+const crypto = require('crypto'),
+      fs = require("fs"),
+      http = require("http");
 
-var express = require('express');
-var app = express();
+var privateKey = fs.readFileSync('privatekey.pem').toString();
+var certificate = fs.readFileSync('certificate.pem').toString();
 
-app.get('/', function(req, res){
-  res.send('hello world');
-});
+var credentials = crypto.createCredentials({key: privateKey, cert: certificate});
 
-app.listen(3000);
+var handler = function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+};
+
+var server = http.createServer();
+server.setSecure(credentials);
+server.addListener("request", handler);
+server.listen(8000);

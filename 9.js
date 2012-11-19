@@ -1,14 +1,18 @@
 /*
-  Concept: Replify
+  Concept: Server Health
 */
 var express = require('express'),
-    replify = require('replify'),
+    http = require('http'),
     app = express();
+server = http.createServer(app);
 
-app.get('/', function(req, res){
-  res.send("value: " + app.get('value') );
+app.get('/health', function(req, res){
+    res.send({
+        pid: process.pid,
+        memory: process.memoryUsage(),
+        uptime: process.uptime(),
+        connections: server.connections
+    });
 });
 
-app.listen(3000);
-
-replify('repl', app);
+server.listen(3000);
