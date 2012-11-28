@@ -1,18 +1,18 @@
 /*
-	Concept: Hello World - SSL
+	Concept: Hello World - HTTPS
 */
 
-var tls = require('tls'), fs = require('fs');
+var https = require('https'), fs = require('fs');
+
 var opts = {
   key: fs.readFileSync('privatekey.pem'),
   cert: fs.readFileSync('certificate.pem'),
-  requestCert: true, // client certificate auth
   // self-signed certificate.
   ca: [ fs.readFileSync('certificate.pem') ]
-};
-// cts = clear text stream
-var server = tls.createServer(opts, function(cts){
-  cts.write("Hello World!\n");
-  cts.end();
-});
-server.listen(443,function(){ console.log('ssl-ing') });
+}
+
+// create an HTTPS server
+https.createServer(opts, function(req, res){
+  res.write("Hello World!\n");
+  res.end();
+}).listen(443, function(){ console.log('ssl-ing') });
