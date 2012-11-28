@@ -19,6 +19,7 @@
   	"express" : "3.0.2",
   	"request" : "*",
   	"debug" : "*",
-  	"replify" : "*"
+  	"replify" : "*",
+    "socket.io" : "*"
   }
 }
