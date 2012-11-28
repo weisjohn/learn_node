@@ -11,7 +11,6 @@ var opts = {
   ca: [ fs.readFileSync('certificate.pem') ]
 }
 
-// create an HTTPS server
 https.createServer(opts, function(req, res){
   res.write("Hello World!\n");
   res.end();
