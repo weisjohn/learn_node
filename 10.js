@@ -8,13 +8,12 @@ var app = require('http').createServer(handler)
 app.listen(8080);
 
 function handler (req, res) {
-  fs.readFile(__dirname + '/10.html',
+  fs.readFile(__dirname + '/11.html',
   function (err, data) {
     if (err) {
       res.writeHead(500);
-      return res.end('Error loading 10.html');
+      return res.end('Error loading 11.html');
     }
-
     res.writeHead(200);
     res.end(data);
   });

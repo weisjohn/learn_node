@@ -39,20 +39,29 @@
 			}
 		};
 
+		var delay = 0;
+		if (location.hash) { 
+			delay = parseInt(location.hash.split('#rtt=')[1]);
+		}
+
 		$(function() {
 
 			var socket = io.connect(window.location.href);
 			socket.on('move', function (data) {
-				console.log(data);
+				
 				
 				// update local
-				$("#ball").css(data);
+				setTimeout(function() { 
+					console.log(data);
+					
+					$("#ball").css(data) 
+				}, delay);
 			});
 
 			var select_delta;
 			function handle_local_move(evnt) {
 
-				console.log('move');
+				// console.log('move');
 
 				var new_location = {
 					"left" : (evnt.pageX + select_delta["left"]), 
@@ -63,12 +72,14 @@
 				$("#ball").css(new_location);
 
 				// update server
-				socket.emit("move", new_location);
+				setTimeout(function() { 
+					socket.emit("move", new_location);
+				}, delay);
 			}
 
 			$("#ball").bind(InputHandler.startEvent, function(evnt) {
 				var offset_target = $(this);
-				console.log(InputHandler.startEvent);
+				// console.log(InputHandler.startEvent);
 				// find and record the delta between where the select occurred and where the object is
 				// prevent a "jut" on select of a layer
 				var select_event = InputHandler.mungeEvent(evnt);

@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
     debug_request('response');
     res.set(resp.headers);
     res.send(resp.body);
-    debug_express('done');
+    debug_express('done: ' + req.url);
   });
 });
 
