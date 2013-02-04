@@ -14,12 +14,17 @@
   "author": "John Weis",
   "license": "BSD",
   "readmeFilename": "README.md",
-  "private" : "true",
-  "dependencies" : {
-  	"express" : "3.0.2",
-  	"request" : "*",
-  	"debug" : "*",
-  	"replify" : "*",
-    "socket.io" : "*"
+  "private": "true",
+  "dependencies": {
+    "express": "~3.0.2",
+    "request": "*",
+    "debug": "*",
+    "replify": "*",
+    "socket.io": "*",
+    "underscore": "~1.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
