@@ -1,29 +1,23 @@
 /*
-  Concept: Socket.IO server
+  Concept: Simple HTTP Proxy
 */
 
-var app = require('http').createServer(handler)
-  , io = require('socket.io').listen(app)
-  , fs = require('fs');
-app.listen(8080);
+var express = require('express'),
+  request = require('request'),
+  debug_express = require('debug')('express'),
+  debug_request = require('debug')('request'),
+  app = express();
 
-function handler (req, res) {
-  fs.readFile(__dirname + '/10.html',
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading 10.html');
-    }
-
-    res.writeHead(200);
-    res.end(data);
-  });
-}
-
-var position = { left : 0, top : 0 };
-io.sockets.on('connection', function (socket) {
-  socket.emit('move', position);
-  socket.on('move', function (data) {
-    socket.broadcast.emit("move", position = data);
+app.use(function(req, res, next) {
+  debug_express('proxy: ' + req.url);
+  debug_request('request');
+  request.get("http://johnweis.com" + req.url, 
+  function(err, resp) {
+    debug_request('response');
+    res.set(resp.headers);
+    res.send(resp.body);
+    debug_express('done');
   });
 });
+
+app.listen(3000);
