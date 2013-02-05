@@ -21,7 +21,8 @@
     "debug": "*",
     "replify": "*",
     "socket.io": "*",
-    "underscore": "~1.4.4"
+    "underscore": "~1.4.4",
+    "commander": "~1.1.1"
   },
   "devDependencies": {},
   "scripts": {
